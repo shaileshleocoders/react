@@ -20,7 +20,6 @@ const AddUser = () => {
         userdata.password = password;
         userdata.mobile = mobile;
         userdata.address = address;
-
         console.log(userdata);
     }
     return (
