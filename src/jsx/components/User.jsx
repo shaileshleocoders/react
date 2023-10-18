@@ -2,9 +2,12 @@ import { useState } from "react";
 import UserList from "./UserList";
 import AddUser from "./AddUser";
 import { Button } from "react-bootstrap";
+import './../../assets/scss/users.scss'
 
 const User = () => {
     const [count, setcount] = useState(0);
+    const [user, setuser] = useState({});
+    const [index, setindex] = useState(0);
     const [userList, setuserList] = useState([
         {
             id: 1,
@@ -138,18 +141,42 @@ const User = () => {
     const deleteuser = (id) => {
         const newuserlist = [...userList];
         const filteredUsers = newuserlist.filter((user) => user.id !== id);
-        console.log(filteredUsers);
         setuserList(filteredUsers)
     }
 
+    const addUser = (data) => {
+        data.id = userList.length + 1;
+        const newuserlist = [...userList, data];
+        setuserList(newuserlist);
+    }
+
+    const editUser = (id) => {
+        setuser({});
+        const user = userList.find((user)=>user.id===id);
+        const users = [...userList];
+        const index = users.indexOf(user)
+        setindex(index);
+        setuser(user);
+    }
+
+    const saveEdit = (data)=>{
+        const users = [...userList];
+        users.splice(index,1,data); 
+        setuserList(users);
+    }
     return (
 
-        <>
-            {!showaddUserForm ? <Button className="btn btn-primary" onClick={() => setshowaddUserForm(true)}>AddUser</Button>
+        <div className="user">
+            {!showaddUserForm ? <Button className="btn" onClick={() => setshowaddUserForm(true)}>AddUser</Button>
                 : <Button className="btn btn-primary" onClick={() => setshowaddUserForm(false)}>hideForm</Button>}
-            {showaddUserForm ? <AddUser /> : null}
-            <UserList users={userList} deleteuser={deleteuser} />
-        </>
+            {showaddUserForm ? <AddUser addUser={addUser} user={user} saveEdit={saveEdit}/> : null}
+            <UserList
+                users={userList}
+                deleteuser={deleteuser}
+                setshowaddUserForm={setshowaddUserForm}
+                editUser={editUser}
+            />
+        </div>
     )
 }
 
