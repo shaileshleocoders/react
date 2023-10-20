@@ -4,7 +4,7 @@ import AddUser from "./AddUser";
 import { Button } from "react-bootstrap";
 import './../../assets/scss/users.scss'
 
-import { fetchUsers } from "./Server";
+import { fetchUsers, deleteUserServer, addUserServer } from "./Server";
 
 const User = () => {
 
@@ -33,15 +33,38 @@ const User = () => {
     
 
     const deleteuser = (id) => {
-        const newuserlist = [...userList];
-        const filteredUsers = newuserlist.filter((user) => user.id !== id);
-        setuserList(filteredUsers)
+        // const newuserlist = [...userList];
+        // const filteredUsers = newuserlist.filter((user) => user.id !== id);
+        // setuserList(filteredUsers)
+
+        deleteUserServer(id,(success)=>{
+            console.log(success)
+            if(success==true){
+                getuserslist();
+            }else{
+                alert("Error");
+            }
+        },(error)=>{
+            console.log(error);
+        })
+
     }
 
     const addUser = (data) => {
-        data.id = userList.length + 1;
-        const newuserlist = [...userList, data];
-        setuserList(newuserlist);
+        // data.id = userList.length + 1;
+        // const newuserlist = [...userList, data];
+        // setuserList(newuserlist);
+
+        addUserServer(data,(success)=>{
+            console.log(success);
+            if(success==true){
+                getuserslist();
+            }else{
+                alert("error")
+            }
+        },(error)=>{
+            console.log(error);
+        })
     }
 
     const editUser = (id) => {

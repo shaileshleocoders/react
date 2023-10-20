@@ -8,6 +8,7 @@ const AddUser = (props) => {
     const [name, setname] = useState("");
     const [email, setemail] = useState("");
     const [age, setage] = useState("");
+    const [address, setaddress] = useState("");
 
     const getName = (event) => {
         // setname()
@@ -21,34 +22,42 @@ const AddUser = (props) => {
             setname(name)
             setage(age)
             setemail(email)
+            setaddress(address)
         }
     }, []);
 
     const save = (e) => {
         e.preventDefault();
-        if (user.id) {
-            const userdata = {};
-            userdata.name = name;
-            userdata.email = email;
-            userdata.age = age;
-            userdata.id = user.id;
-            console.log(userdata);
-            props.saveEdit(userdata);
-            setname("")
-            setemail("")
-            setage("")
-        } else {
-            const userdata = {};
-            userdata.name = name;
-            userdata.email = email;
-            userdata.age = age;
-            console.log(userdata);
-            props.addUser(userdata);
-            setname("")
-            setemail("")
-            setage("")
-        }
+        // if (user.id) {
+        //     const userdata = {};
+        //     userdata.name = name;
+        //     userdata.email = email;
+        //     userdata.age = age;
+        //     userdata.id = user.id;
+        //     console.log(userdata);
+        //     props.saveEdit(userdata);
+        //     setname("")
+        //     setemail("")
+        //     setage("")
+        // } else {
+        //     const userdata = {};
+        //     userdata.name = name;
+        //     userdata.email = email;
+        //     userdata.age = age;
+        //     console.log(userdata);
+        //     props.addUser(userdata);
+        //     setname("")
+        //     setemail("")
+        //     setage("")
+        // }
 
+        let user = {};
+        user.name = name
+        user.email = email
+        user.age = age
+        user.address = address
+        console.log(user);
+        props.addUser(user);
     }
     return (
         <div>
@@ -57,8 +66,8 @@ const AddUser = (props) => {
                 <input type="text" onChange={getName} value={name} /> <br /> <br />
                 <label htmlFor="">email</label>
                 <input type="email" onChange={(e) => setemail(e.target.value)} value={email} /> <br /> <br />
-                {/* <label htmlFor="">password</label>
-                <input type="password" onChange={(e) => setpassword(e.target.value)} value={password} /> <br /> <br /> */}
+                <label htmlFor="">address</label>
+                <input type="text" onChange={(e) => setaddress(e.target.value)} value={address} /> <br /> <br />
                 {/* <label htmlFor="">mobile</label>
                 <input type="mobile" onChange={(e) => setmobile(e.target.value)} value={mobile} /> <br /> <br /> */}
                 <label htmlFor="">age</label>

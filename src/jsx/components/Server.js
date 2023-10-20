@@ -12,3 +12,29 @@ export const fetchUsers = (success,error)=>{
         error(err)
     })
 }
+
+
+export const deleteUserServer =(id,success,error)=>{
+    axios.delete(`${BASEURL}J0i4Y2/data/${id}`).then((resp)=>{
+        if(resp.status===200){
+            success(true)
+        }else{
+            success(false)
+        }
+    }).catch((err)=>{
+        error(err)
+    })
+}
+
+export const addUserServer = (data,success,error)=>{
+    axios.post(`${BASEURL}J0i4Y2/data`,data).then((response)=>{
+        console.log(response);
+        if(response.status==201){
+            success(true)
+        }else{
+            success(false)
+        }
+    }).catch((err)=>{
+        error(err)
+    })
+} 
