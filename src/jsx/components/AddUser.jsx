@@ -9,11 +9,46 @@ const AddUser = (props) => {
     const [email, setemail] = useState("");
     const [age, setage] = useState("");
     const [address, setaddress] = useState("");
+    const [nameErr, setnameErr] = useState("");
+    const [emailErr, setemailErr] = useState("");
+    const [ageErr, setageErr] = useState("");
+    const [addressErr, setaddressErr] = useState("");
 
     const getName = (event) => {
         // setname()
         // console.log(event.target.value)
         setname(event.target.value)
+        if(event.target.value==""){
+            setnameErr("name is required");
+        }else{
+            setnameErr("");
+        }
+    }
+
+    const getEmail = (event) => {
+        setemail(event.target.value)
+        if(event.target.value==""){
+            setemailErr("email is required");
+        }else{
+            setemailErr("");
+        }
+    }
+    
+    const getaddress = (event) => {
+        setaddress(event.target.value)
+        if(event.target.value==""){
+            setaddressErr("address is required");
+        }else{
+            setaddressErr("");
+        }
+    }
+    const getage = (event) => {
+        setage(event.target.value)
+        if(event.target.value==""){
+            setageErr("age is required");
+        }else{
+            setageErr("");
+        }
     }
 
     useEffect(() => {
@@ -50,28 +85,44 @@ const AddUser = (props) => {
         //     setemail("")
         //     setage("")
         // }
-
-        let user = {};
-        user.name = name
-        user.email = email
-        user.age = age
-        user.address = address
-        console.log(user);
-        props.addUser(user);
+        if(name===""){
+            setnameErr("name is required")
+        }else if(email===""){
+            setemailErr("email is required")
+        }else if(address===""){
+            setaddressErr("address is required")
+        }else if(age===""){
+            setageErr("age is required")
+        }else{
+            let user = {};
+            user.name = name
+            user.email = email
+            user.age = age
+            user.address = address
+            console.log(user);
+            props.addUser(user);
+        }      
     }
     return (
         <div>
             <form action="" onSubmit={save}>
-                <label htmlFor="">Name</label>
-                <input type="text" onChange={getName} value={name} /> <br /> <br />
-                <label htmlFor="">email</label>
-                <input type="email" onChange={(e) => setemail(e.target.value)} value={email} /> <br /> <br />
-                <label htmlFor="">address</label>
-                <input type="text" onChange={(e) => setaddress(e.target.value)} value={address} /> <br /> <br />
+                <label htmlFor="">Name <span className='text-danger'>*</span></label>
+                <input type="text" onChange={getName} value={name} /> <br />
+                <p className='text-danger'>{nameErr && nameErr}</p>
+                 <br />
+                
+                <label htmlFor="">email <span className='text-danger'>*</span></label>
+                <input type="email" onChange={getEmail} value={email} /> <br />
+                <p className='text-danger'>{emailErr && emailErr}</p> <br />
+                <label htmlFor="">address <span className='text-danger'>*</span></label>
+
+                <input type="text" onChange={getaddress} value={address} /> <br /> 
+                <p className='text-danger'>{addressErr && addressErr}</p><br />
                 {/* <label htmlFor="">mobile</label>
                 <input type="mobile" onChange={(e) => setmobile(e.target.value)} value={mobile} /> <br /> <br /> */}
-                <label htmlFor="">age</label>
-                <input type="number" onChange={(e) => setage(e.target.value)} value={age} /> <br /> <br />
+                <label htmlFor="">age <span className='text-danger'>*</span></label>
+                <input type="number" onChange={getage} value={age} /> <br /> 
+                <p className='text-danger'>{ageErr && ageErr}</p><br />
                 <button className='btn btn-primary btn-sm'>Submit</button>
             </form>
         </div>

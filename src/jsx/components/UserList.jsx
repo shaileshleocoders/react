@@ -15,6 +15,7 @@ const UserList = (props) => {
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Age</th>
+                        <th scope="col">Address</th>
                         <th scope="col">Email</th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@ const UserList = (props) => {
                                 <td >{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.age}</td>
+                                <td>{user.address}</td>
                                 <td>{user.email}</td>
                                 <td><button className='btn btn-sm btn-danger' onClick={() => props.deleteuser(user.id)}>delete</button></td>
                                 <td><button className='btn btn-sm btn-primary' onClick={() => {
